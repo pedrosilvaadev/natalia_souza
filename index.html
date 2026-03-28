@@ -11,18 +11,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=optional"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/hero-760.webp"
+      imagesrcset="assets/hero-480.webp 480w, assets/hero-760.webp 760w, assets/hero-1024.webp 1024w"
+      imagesizes="(max-width: 900px) 100vw, 50vw"
+      fetchpriority="high"
     />
     <link rel="stylesheet" href="style.css" />
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
     <div class="noise-overlay"></div>
 
     <!-- Floating Navigation Pill -->
-    <nav class="liquid-nav reveal">
+    <nav class="liquid-nav">
       <div class="nav-content">
         <span class="logo">Natalia Souza</span>
         <ul class="nav-links">
@@ -37,12 +43,12 @@
             rel="noopener noreferrer"
             class="btn-core"
           >
-            Agendar Horário <i class="ph ph-arrow-up-right"></i>
+            Agendar Horário <span aria-hidden="true">↗</span>
           </a>
         </div>
 
-        <button class="menu-toggle">
-          <i class="ph ph-list"></i>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu">
+          <span aria-hidden="true">☰</span>
         </button>
       </div>
     </nav>
@@ -50,16 +56,28 @@
     <main>
       <!-- Hero Section -->
       <section class="hero-split">
-        <div class="hero-image-wrapper reveal">
+        <div class="hero-image-wrapper">
           <div class="image-inner">
-            <img
-              src="assets/hero.png"
-              alt="Aesthetic portrait of natural beauty"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="assets/hero-480.webp 480w, assets/hero-760.webp 760w, assets/hero-1024.webp 1024w"
+                sizes="(max-width: 900px) 100vw, 50vw"
+              />
+              <img
+                src="assets/hero.png"
+                alt="Aesthetic portrait of natural beauty"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                width="1024"
+                height="1536"
+              />
+            </picture>
           </div>
         </div>
         <div class="hero-content">
-          <div class="content-wrapper reveal delay-1">
+          <div class="content-wrapper">
             <div class="eyebrow" style="margin-bottom: 2rem">
               Studio de Beleza & Cuidado
             </div>
@@ -77,9 +95,7 @@
             <div class="btn-double-bezel lg-cta mt-8">
               <a href="#procedimentos" class="btn-core primary">
                 Conhecer Procedimentos
-                <span class="icon-circle"
-                  ><i class="ph ph-arrow-down flex-center"></i
-                ></span>
+                <span class="icon-circle"><span aria-hidden="true">↓</span></span>
               </a>
             </div>
           </div>
@@ -120,10 +136,21 @@
             <div class="about-image-wrapper reveal delay-1">
               <div class="double-bezel-frame about-img-frame">
                 <div class="frame-inner">
-                  <img
-                    src="assets/about.png"
-                    alt="Luxurious beauty salon setup"
-                  />
+                  <picture>
+                    <source
+                      type="image/webp"
+                      srcset="assets/about-420.webp 420w, assets/about-760.webp 760w, assets/about-1100.webp 1100w"
+                      sizes="(max-width: 900px) 100vw, 40vw"
+                    />
+                    <img
+                      src="assets/about.jpg"
+                      alt="Luxurious beauty salon setup"
+                      loading="lazy"
+                      decoding="async"
+                      width="2268"
+                      height="4032"
+                    />
+                  </picture>
                 </div>
               </div>
             </div>
@@ -147,6 +174,8 @@
                   src="assets/brown.jpeg"
                   alt="Brow Lamination"
                   class="card-bg-img"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="card-overlay"></div>
                 <div class="card-content-bottom">
@@ -163,6 +192,8 @@
                   src="assets/lash-lifting.jpeg"
                   alt="Lash Lifting Detail"
                   class="card-bg-img"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="card-overlay"></div>
                 <div class="card-content-bottom compact">
@@ -178,6 +209,8 @@
                   src="assets/nano-fios.jpeg"
                   alt="Nanofios"
                   class="card-bg-img"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="card-overlay"></div>
                 <div class="card-content-bottom compact">
@@ -193,6 +226,8 @@
                   src="assets/design.jpeg"
                   alt="Design"
                   class="card-bg-img rotate-right-90"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="card-overlay"></div>
                 <div class="card-content-bottom compact">
@@ -261,7 +296,7 @@
       rel="noopener noreferrer"
       aria-label="Conversar no WhatsApp"
     >
-      <i class="ph-fill ph-whatsapp-logo"></i>
+      <span aria-hidden="true">✆</span>
     </a>
 
     <script src="main.js"></script>

@@ -5,6 +5,14 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        document.querySelectorAll('.reveal, .block-reveal').forEach(el => {
+            el.classList.add('active');
+        });
+    }
+
     // 1. Intersection Observer for Smooth Scroll Reveals (Fluid Choreography)
     const observerOptions = {
         root: null,
@@ -12,18 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
         threshold: 0.15
     };
 
-    const revealObserver = new IntersectionObserver((entries, observer) => {
+    const revealObserver = prefersReducedMotion ? null : new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                // Optional: Unobserve after revealing to prevent reflow triggers on scroll up
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
     const revealElements = document.querySelectorAll('.reveal, .block-reveal');
-    revealElements.forEach(el => revealObserver.observe(el));
+    revealElements.forEach(el => {
+        if (prefersReducedMotion) return;
+
+        const rect = el.getBoundingClientRect();
+        const isAboveFold = rect.top < window.innerHeight * 0.9;
+
+        // Paint above-the-fold content immediately to avoid delaying LCP.
+        if (isAboveFold) {
+            el.classList.add('active');
+            return;
+        }
+
+        revealObserver.observe(el);
+    });
 
     // 2. Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
